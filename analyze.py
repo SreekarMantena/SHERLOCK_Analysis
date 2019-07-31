@@ -173,6 +173,7 @@ def getTime(v):
     y=3
     SArr = [] 
     iter = 0
+    iter2 = 0
 
     le4 = []
     le3 = []
@@ -180,12 +181,15 @@ def getTime(v):
     le1 = []
     lNTC = []
     while(iter < numTimes):
-        le4.append(getArray(iter*20 + backgroundx + v,y))
-        le3.append(getArray(iter*20 + backgroundx + v, y+2))
-        le2.append(getArray(iter*20 + backgroundx + v, y+4))
-        le1.append(getArray(iter*20 + backgroundx + v, y+6))
-        lNTC.append(getNTC(iter*20 + backgroundx + v, y+8))
-        iter = iter + 1
+        #while(iter2 < numViruses):
+            le4.append(getArray(iter*20 + backgroundx + 2*v,y))
+            le3.append(getArray(iter*20 + backgroundx + 2*v, y+2))
+            le2.append(getArray(iter*20 + backgroundx + 2*v, y+4))
+            le1.append(getArray(iter*20 + backgroundx + 2*v, y+6))
+            lNTC.append(getNTC(iter*20 + backgroundx + 2*v, y+8))
+          #  iter2 = iter2 + 1
+
+            iter = iter + 1
     
     #print(le4)
 
@@ -214,39 +218,42 @@ def getTime(v):
         pNTC.append(stat.mean(item))
 
     return [pe4, pe3, pe2, pe1, pNTC]
-    
+     
 
-   
-
-result = getTime(0)
 #print(result)
 
 plt.figure(2)
  # List to hold x values.
 time = np.arange(numTimes) * 5
 
+virusPlot = 1
+plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=.25, hspace=.7)
+while(virusPlot < numViruses+1):
+    result = getTime(virusPlot-1)
+    # List to hold y values.
+    e4P = result[0]
+    e3P = result[1]
+    e2P = result[2]
+    e1P = result[3]
+        # Plot the number in the list and set the line thickness.
+    plt.subplot(4,2,virusPlot)
+    plt.plot(time, e4P[0:numTimes],  'y', marker = '.', linewidth=3, label = 'e4')
+    plt.plot(time, e3P[0:numTimes],  'r', marker = '.', linewidth=3, label = 'e3')
+    plt.plot(time, e2P[0:numTimes],  'g', marker = '.', linewidth=3, label = 'e2')
+    plt.plot(time, e1P[0:numTimes],  'b', marker = '.', linewidth=3, label = 'e1')
+    plt.plot(time, result[4],  'c', marker = '.', linewidth=3)
 
-# List to hold y values.
-e4P = result[0]
-e3P = result[1]
-e2P = result[2]
-e1P = result[3]
-    # Plot the number in the list and set the line thickness.
-plt.plot(time, e4P,  'y', marker = '.', linewidth=3)
-plt.plot(time, e3P,  'r', marker = '.', linewidth=3)
-plt.plot(time, e2P,  'g', marker = '.', linewidth=3)
-plt.plot(time, e1P,  'b', marker = '.', linewidth=3)
-plt.plot(time, result[4],  'c', marker = '.', linewidth=3)
+    # Set the line chart title and the text font size.
+    plt.title("Flourescence Over Time for " + virusNames[virusPlot-1], fontsize=12)
 
-# Set the line chart title and the text font size.
-plt.title("Flourescence Over Time", fontsize=19)
+        # Set x axes label.
+    plt.xlabel("Time (5 minutes)", fontsize=8)
+    plt.ylabel("Flourescence Value", fontsize=8)
 
-    # Set x axes label.
-plt.xlabel("Time (5 minutes)", fontsize=10)
-plt.ylabel("Flourescence Value", fontsize=10)
+        # Set the x, y axis tick marks text size.
+    plt.tick_params(axis='both', labelsize=9)
 
-    # Set the x, y axis tick marks text size.
-plt.tick_params(axis='both', labelsize=9)
+    virusPlot = virusPlot + 1
 
-    # Display the plot in the matplotlib's viewer.
+#plt.legend(bbox_to_anchor=(0, 0))
 plt.show()

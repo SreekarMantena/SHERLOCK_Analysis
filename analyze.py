@@ -7,11 +7,12 @@ import matplotlib.pyplot as plt
 
 backgroundx = 57
 backgroundx = backgroundx -2
-samplex = 57 + 20*25
+samplex = 57 + 20*36
 samplex = samplex - 2
 numTimes = 30
 
-numViruses = 8
+numViruses = 7
+virusNames = []
 
 root= tk.Tk()
 
@@ -24,6 +25,9 @@ def getExcel ():
     import_file_path = filedialog.askopenfilename()
     print("Importing Data From" + import_file_path)
     df = pd.read_excel (import_file_path, sheet_name='Plate 1 - Sheet1')
+    # names = pd.read_excel (import_file_path, sheet_name='Names')
+    # print(names)
+    # print(names.iloc[:,0])
     #df = pd.read_excel (import_file_path, sheet_name='Sheet1')
     print (df)
     root.destroy()
@@ -33,7 +37,9 @@ canvas1.create_window(200, 200, window=browseButton_Excel)
 
 root.mainloop()
 
-
+virusNames = df.Names[0:numViruses]
+print("Virus Names:")
+print(virusNames)
 
 # def fetchData():
 
@@ -106,7 +112,7 @@ for virus in virusTD:
     e3E.append(virus[1][1])
     e2E.append(virus[1][2])
     e1E.append(virus[1][3])
-    NTCE.append(virus[1][4])
+    NTCE.append(virus[1][4]*3)
 
 
 # data to plot
@@ -130,8 +136,8 @@ rects2 = plt.bar(index + bar_width, e3, bar_width,
 alpha=opacity,
 color='r',
 label='e3', yerr = e3E, capsize = 5)
-ax.plot(1, 1000 , 'bo')
-ax.plot(1.5, 1000 , 'go')
+# ax.plot(1, 1000 , 'bo')
+# ax.plot(1.5, 1000 , 'go')
 #ax.plot(1.4, 1000 , 'yo')
 
 rects3 = plt.bar(index + 2*bar_width, e2, bar_width,
@@ -151,8 +157,8 @@ label='NTC', yerr = NTCE, capsize = 5)
 
 plt.xlabel('Virus Name')
 plt.ylabel('Background Subtracted Flourescence')
-plt.title('Background Subtracted Flourescence for Virus at 1 hour')
-plt.xticks(index + bar_width, ('PIV-1', 'PIV-2'))
+plt.title('Background Subtracted Flourescence for Virus at 2 hours')
+plt.xticks(index + bar_width, virusNames)
 plt.legend()
 plt.tight_layout()
 plt.show()

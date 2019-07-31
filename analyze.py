@@ -7,10 +7,10 @@ import matplotlib.pyplot as plt
 
 backgroundx = 57
 backgroundx = backgroundx -2
-samplex = 57 + 20*36
+numTimes = 28
+samplex = 57 + 20*numTimes
 samplex = samplex - 2
-numTimes = 30
-
+techReps = 4
 numViruses = 7
 virusNames = []
 
@@ -70,11 +70,16 @@ def getInfo(v):
     return [Avg, STD, BSFArr.tolist()]
 
 def getArray(x,y):
-
-    return [df.iloc[x,y], df.iloc[x+1,y], df.iloc[x, y+1]]
+    if(techReps ==4):
+        return [df.iloc[x,y], df.iloc[x+1,y], df.iloc[x, y+1], df.iloc[x+1,y+1]]
+    else:
+        return [df.iloc[x,y], df.iloc[x+1,y], df.iloc[x, y+1]]
 
 def getNTC(x,y):
-    return [df.iloc[x,y], df.iloc[x+1,y], df.iloc[x, y+1], df.iloc[x,y+2], df.iloc[x+1,y+2], df.iloc[x, y+3]]  
+    if(techReps==4):
+        return [df.iloc[x,y], df.iloc[x+1,y], df.iloc[x, y+1], df.iloc[x,y+2], df.iloc[x+1,y+2], df.iloc[x, y+3], df.iloc[x+1,y+1], df.iloc[x+1, y+3]]
+    else:
+        return  [df.iloc[x,y], df.iloc[x+1,y], df.iloc[x, y+1], df.iloc[x,y+2], df.iloc[x+1,y+2], df.iloc[x, y+3]]
 
 #print(getInfo(0))
 

@@ -13,7 +13,7 @@ samplex = samplex - 2
 techReps = 4
 numViruses = 7
 virusNames = []
-order = [1, 2, 3, 4, 5, 6, 7, 8]
+order = [3, 4, 8, 1, 5, 7, 2, 6]
 #order = [1, 3, 2, 4, 5, 6, 7, 8]
 root= tk.Tk()
 

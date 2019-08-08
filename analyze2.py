@@ -13,7 +13,8 @@ samplex = samplex - 2
 techReps = 4
 numViruses = 7
 virusNames = []
-
+order = [1, 2, 3, 4, 5, 6, 7, 8]
+#order = [1, 3, 2, 4, 5, 6, 7, 8]
 root= tk.Tk()
 
 canvas1 = tk.Canvas(root, width = 300, height = 300, bg = 'lightsteelblue')
@@ -106,18 +107,29 @@ e3E = []
 e2E = []
 e1E = []
 NTCE = []
-for virus in virusTD:
-    e4.append(virus[0][0])
-    e3.append(virus[0][1])
-    e2.append(virus[0][2])
-    e1.append(virus[0][3])
-    NTC.append(virus[0][4])
+it1 = 1
+it2 = 1
 
-    e4E.append(virus[1][0])
-    e3E.append(virus[1][1])
-    e2E.append(virus[1][2])
-    e1E.append(virus[1][3])
-    NTCE.append(virus[1][4]*3)
+print(virusNames.values.tolist())
+
+virusNamesR = []
+for num in order:
+    for virus in virusTD:
+        if((it1 == num)):
+            e4.append(virus[0][0])
+            e3.append(virus[0][1])
+            e2.append(virus[0][2])
+            e1.append(virus[0][3])
+            NTC.append(virus[0][4])
+            virusNamesR.append(virusNames.values.tolist()[num-1])
+            e4E.append(virus[1][0])
+            e3E.append(virus[1][1])
+            e2E.append(virus[1][2])
+            e1E.append(virus[1][3])
+            NTCE.append(virus[1][4]*3)
+        it1 = it1 + 1
+    it1 = 1
+
 
 
 # data to plot
@@ -132,7 +144,7 @@ plt.rc('xtick', labelsize=40)
 
 
 print("e4:")
-#print(e4)
+print(e4)
 
 rects1 = plt.bar(index, e4, bar_width,
 alpha=opacity,
@@ -164,14 +176,16 @@ color='c',
 label='NTC', yerr = NTCE, capsize = 5)
 
 plt.xlabel('Virus Name', fontsize = 14)
-plt.ylabel('Background Subtracted Flourescence', fontsize = 14)
+ax.set_ylim(bottom = 0)
+plt.ylabel('Background Subtracted Flourescence', fontsize = 15)
 plt.title('Background Subtracted Flourescence for Virus at 2 hours', fontsize = 18)
-plt.xticks(index + bar_width, virusNames)
+plt.xticks(index + bar_width, virusNamesR)
 for label in (ax.get_xticklabels() + ax.get_yticklabels()):
-    label.set_fontsize(14)
+    label.set_fontsize(15)
 plt.legend()
 #plt.tight_layout()
 plt.show()
+
 
 
 def getTime(v):

@@ -11,10 +11,15 @@ numTimes = 28
 samplex = 57 + 20*numTimes
 samplex = samplex - 2
 techReps = 4
-numViruses = 7
+numViruses = 8
 virusNames = []
-order = [3, 4, 8, 1, 5, 7, 2, 6]
-#order = [1, 3, 2, 4, 5, 6, 7, 8]
+
+#order  [1,2,3]
+
+#order = [4, 1, 5]
+order = [1, 4, 6]
+#order = [3, 4, 8, 1, 5, 7, 2, 6]
+#order = [1, 2, 3, 4, 5, 6, 7]
 root= tk.Tk()
 
 canvas1 = tk.Canvas(root, width = 300, height = 300, bg = 'lightsteelblue')
@@ -86,7 +91,6 @@ def getNTC(x,y):
 
 #getInfo(0)
 
-
 x = 0
 virusTD = []
 
@@ -131,20 +135,34 @@ for num in order:
     it1 = 1
 
 
+# #Code for manual combining of data for 8-9 presentation
+
+e4= [66663.0, 57306.5, 47767.25]
+e3 =[71088.75, 48126.25, 49210.5]
+e2 = [71483.25, 58851.75, 35670.25]
+e1 = [72868.25, 48199.25, 5484.0]
+virusNamesR = ['HENVDV2', 'HENVA', 'AV']
+e4E[1] = 3446.084783247988
+e3E[1] = 18115.143947813387
+e2E[1] = 3636.462876202643
+e1E[1] = 9173.92516410869
 
 # data to plot
 n_groups = 8
 
 # create plot
 fig, ax = plt.subplots()
-index = np.arange(numViruses)
+index = np.arange(len(order))
 bar_width = 0.15
 opacity = 0.8
 plt.rc('xtick', labelsize=40)  
 
 
 print("e4:")
-print(e4)
+print(e4E)
+print(e3E)
+print(e2E)
+print(e1E)
 
 rects1 = plt.bar(index, e4, bar_width,
 alpha=opacity,
@@ -175,14 +193,15 @@ alpha=opacity,
 color='c',
 label='NTC', yerr = NTCE, capsize = 5)
 
-plt.xlabel('Virus Name', fontsize = 14)
+plt.xlabel('Virus Name', fontsize = 19)
 ax.set_ylim(bottom = 0)
-plt.ylabel('Background Subtracted Flourescence', fontsize = 15)
-plt.title('Background Subtracted Flourescence for Virus at 2 hours', fontsize = 18)
+ax.set_ylim(top = 80000)
+plt.ylabel('Background Subtracted Fluorescence', fontsize = 19)
+plt.title('Limit-Of-Detection for Optimized Respiratory Viruses', fontsize = 20)
 plt.xticks(index + bar_width, virusNamesR)
 for label in (ax.get_xticklabels() + ax.get_yticklabels()):
-    label.set_fontsize(15)
-plt.legend()
+    label.set_fontsize(18)
+plt.legend(fontsize = 15, loc = 1)
 #plt.tight_layout()
 plt.show()
 

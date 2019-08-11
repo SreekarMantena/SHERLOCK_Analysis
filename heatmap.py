@@ -4,6 +4,8 @@ import pandas as pd
 import statistics as stat
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
+import matplotlib.ticker as ticker
 
 root= tk.Tk()
 
@@ -50,37 +52,40 @@ while (iter < len(cNames)):
     data.append(df.iloc[iter,1:].tolist())
     iter = iter + 1
 
-#print(data)
+print(data)
 
-vegetables = ["cucumber", "tomato", "lettuce", "asparagus",
-              "potato", "wheat", "barley"]
-farmers = ["Farmer Joe", "Upland Bros.", "Smith Gardening",
-           "Agrifun", "Organiculture", "BioGoods Ltd.", "Cornylee Corp."]
-
-harvest = np.array([[0.8, 2.4, 2.5, 3.9, 0.0, 4.0, 0.0],
-                    [2.4, 0.0, 4.0, 1.0, 2.7, 0.0, 0.0],
-                    [1.1, 2.4, 0.8, 4.3, 1.9, 4.4, 0.0],
-                    [0.6, 0.0, 0.3, 0.0, 3.1, 0.0, 0.0],
-                    [0.7, 1.7, 0.6, 2.6, 2.2, 6.2, 0.0],
-                    [1.3, 1.2, 0.0, 0.0, 0.0, 3.2, 5.1],
-                    [0.1, 2.0, 0.0, 1.4, 0.0, 1.9, 6.3]])
+#fig, ax = plt.subplots(figsize = (40, 200))
+# im = ax.imshow(data[3:24])
 
 
-fig, ax = plt.subplots()
-im = ax.imshow(data)
+ax = sns.heatmap(data, cbar = True, cbar_kws = {"shrink": 0.5}, square = True, linewidths = 0.005 )
 
-# # We want to show all ticks...
 ax.set_xticks(np.arange(len(tNames)))
 ax.set_yticks(np.arange(len(cNames)))
-# # ... and label them with the respective list entries
 ax.set_xticklabels(tNames)
-#plt.xticks(x, tNames, rotation = vertical)
 ax.set_yticklabels(cNames)
 
-# # Rotate the tick labels and set their alignment.
-plt.setp(ax.get_xticklabels(), rotation="vertical", ha="center")
+# ax.xaxis.set_major_locator(ticker.MultipleLocator(1))
+# ax.xaxis.set_minor_locator(ticker.MultipleLocator(1))
+# ax.set_xticklabels(tNames, minor = True, rotation = "vertical")
 
-plt.setp(ax.get_yticklabels(), rotation="horizontal", ha="right")
+# for tick in ax.xaxis.get_minor_ticks():
+#     tick.tick1line.set_markersize(0)
+#     tick.tick2line.set_markersize(0)
+#     tick.label1.set_horizontalalignment('center')
+
+# # We want to show all ticks...
+# ax.set_xticks(np.arange(len(tNames)))
+# ax.set_yticks(np.arange(len(cNames)))
+# # ... and label them with the respective list entries
+#ax.set_xticklabels(tNames)
+#plt.xticks(x, tNames, rotation = vertical)
+#ax.set_yticklabels(cNames)
+
+# # Rotate the tick labels and set their alignment.
+#plt.setp(ax.get_xticklabels(), rotation="vertical")
+
+#plt.setp(ax.get_yticklabels(), rotation="horizontal")
 
 # # Loop over data dimensions and create text annotations.
 # for i in range(len(tNames)):
@@ -88,7 +93,8 @@ plt.setp(ax.get_yticklabels(), rotation="horizontal", ha="right")
 #         text = ax.text(j, i, data[i, j],
 #                        ha="center", va="center", color="w")
 
+
 ax.set_title("Background-Subtracted Fluorescence at 3 hours")
 #fig.tight_layout()
-plt.colorbar(plt.pcolor(data))
+#plt.colorbar(plt.pcolor(data))
 plt.show()

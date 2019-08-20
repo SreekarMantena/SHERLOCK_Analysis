@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 backgroundx = 57
 backgroundx = backgroundx -2
-numTimes = 28
+numTimes = 29
 samplex = 57 + 20*numTimes
 samplex = samplex - 2
 techReps = 4
@@ -17,9 +17,9 @@ virusNames = []
 #order  [1,2,3]
 
 #order = [4, 1, 5]
-order = [1, 4, 6]
+#order = []
 #order = [3, 4, 8, 1, 5, 7, 2, 6]
-#order = [1, 2, 3, 4, 5, 6, 7]
+order = [1, 2, 3, 4, 5, 6, 7, 8]
 root= tk.Tk()
 
 canvas1 = tk.Canvas(root, width = 300, height = 300, bg = 'lightsteelblue')
@@ -30,11 +30,11 @@ def getExcel ():
     
     import_file_path = filedialog.askopenfilename()
     print("Importing Data From" + import_file_path)
-    df = pd.read_excel (import_file_path, sheet_name='Plate 1 - Sheet1')
+    #df = pd.read_excel (import_file_path, sheet_name='Plate 1 - Sheet1')
     # names = pd.read_excel (import_file_path, sheet_name='Names')
     # print(names)
     # print(names.iloc[:,0])
-    #df = pd.read_excel (import_file_path, sheet_name='Sheet1')
+    df = pd.read_excel (import_file_path, sheet_name='Sheet1')
     print (df)
     root.destroy()
     
@@ -58,6 +58,7 @@ def getInfo(v):
     SNTC = [getNTC(samplex + v, y+8)]
     ANTC = [getNTC(backgroundx + v, y+8)]
     BSFArr=  np.subtract(SArr, BArr)
+    #BSFArr = SArr
     NTCB = np.subtract(SNTC, ANTC)
     e4A = stat.mean(BSFArr[0])
     e4S = stat.stdev(BSFArr[0])
@@ -135,17 +136,17 @@ for num in order:
     it1 = 1
 
 
-# #Code for manual combining of data for 8-9 presentation
+# # #Code for manual combining of data for 8-9 presentation
 
-e4= [66663.0, 57306.5, 47767.25]
-e3 =[71088.75, 48126.25, 49210.5]
-e2 = [71483.25, 58851.75, 35670.25]
-e1 = [72868.25, 48199.25, 5484.0]
-virusNamesR = ['HENVDV2', 'HENVA', 'AV']
-e4E[1] = 3446.084783247988
-e3E[1] = 18115.143947813387
-e2E[1] = 3636.462876202643
-e1E[1] = 9173.92516410869
+# e4= [66663.0, 57306.5, 47767.25]
+# e3 =[71088.75, 48126.25, 49210.5]
+# e2 = [71483.25, 58851.75, 35670.25]
+# e1 = [72868.25, 48199.25, 5484.0]
+# virusNamesR = ['HENVDV2', 'HENVA', 'AV']
+# e4E[1] = 3446.084783247988
+# e3E[1] = 18115.143947813387
+# e2E[1] = 3636.462876202643
+# e1E[1] = 9173.92516410869
 
 # data to plot
 n_groups = 8
@@ -195,12 +196,12 @@ label='NTC', yerr = NTCE, capsize = 5)
 
 plt.xlabel('Virus Name', fontsize = 19)
 ax.set_ylim(bottom = 0)
-ax.set_ylim(top = 80000)
+ax.set_ylim(top = 120000)
 plt.ylabel('Background Subtracted Fluorescence', fontsize = 19)
 plt.title('Limit-Of-Detection for Optimized Respiratory Viruses', fontsize = 20)
 plt.xticks(index + bar_width, virusNamesR)
 for label in (ax.get_xticklabels() + ax.get_yticklabels()):
-    label.set_fontsize(18)
+    label.set_fontsize(15)
 plt.legend(fontsize = 15, loc = 1)
 #plt.tight_layout()
 plt.show()

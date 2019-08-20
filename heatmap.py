@@ -36,33 +36,35 @@ ncrRNA = 27
 iter = 0
 
 print("crRNA Names:")
-cNames = df.iloc[0:21,0].tolist()
+cNames = df.iloc[0:19,0].tolist()
 print(cNames)
 
 print("Target Names")
-tNames = df.iloc[27,1:].tolist()
+tNames = df.iloc[26,1:].tolist()
 print(tNames)
 
-print(df.iloc[0,0])
-print(df.iloc[0,1])
-print(df.iloc[1,2])
-print(df.iloc[0,1:].tolist())
+# print(df.iloc[0,0])
+# print(df.iloc[0,1])
+# print(df.iloc[1,2])
+# print(df.iloc[0,1:].tolist())
 
 while (iter < len(cNames)):
     data.append(df.iloc[iter,1:].tolist())
     iter = iter + 1
 
-print(data)
+#print(data)
 
 #fig, ax = plt.subplots(figsize = (40, 200))
 # im = ax.imshow(data[3:24])
 
+data = np.around(data, decimals = 0)
+ax = sns.heatmap(data, cbar = True, cbar_kws = {"shrink": 0.5}, square = True, linewidths = 0.005, annot=True, annot_kws={"size": 5}, fmt = 'g')
+#, vmin = 39.12, vmax = 120
 
-ax = sns.heatmap(data, cbar = True, cbar_kws = {"shrink": 0.5}, square = True, linewidths = 0.005 )
 
 ax.set_xticks(np.arange(len(tNames)))
 ax.set_yticks(np.arange(len(cNames)))
-ax.set_xticklabels(tNames)
+ax.set_xticklabels(tNames, rotation = "vertical")
 ax.set_yticklabels(cNames)
 
 # ax.xaxis.set_major_locator(ticker.MultipleLocator(1))
@@ -97,4 +99,11 @@ ax.set_yticklabels(cNames)
 ax.set_title("Background-Subtracted Fluorescence at 3 hours")
 #fig.tight_layout()
 #plt.colorbar(plt.pcolor(data))
+
+for text in ax.texts:
+    if float(text.get_text()) > 1:
+        text.set_size(7)
+        text.set_weight('bold')
+        text.set_style('italic')
+
 plt.show()

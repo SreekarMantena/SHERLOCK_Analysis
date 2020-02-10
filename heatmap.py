@@ -58,14 +58,24 @@ while (iter < len(cNames)):
 # im = ax.imshow(data[3:24])
 
 data = np.around(data, decimals = 0)
-ax = sns.heatmap(data, cbar = True, cbar_kws = {"shrink": 0.5}, square = True, linewidths = 0.005, annot=True, annot_kws={"size": 5}, fmt = 'g')
+ax = sns.heatmap(data, cbar = True, cbar_kws = {"shrink": 0.5}, square = True, linewidths = 0.005, annot=True)
+# 
 #, vmin = 39.12, vmax = 120
+
+mask = []
+
+# while (iter < len(cNames)):
+#     while(iter)
+#     if(data.[iter,1:].tolist())
+#     iter = iter + 1
 
 
 ax.set_xticks(np.arange(len(tNames)))
 ax.set_yticks(np.arange(len(cNames)))
-ax.set_xticklabels(tNames, rotation = "vertical")
-ax.set_yticklabels(cNames)
+ax.set_xticklabels(tNames, rotation = "vertical", size = 14)
+ax.set_yticklabels(cNames, size = 14)
+ax.set_xlabel("Synthetic Viral Targets at Varying Concentrations", size = 15)
+ax.set_ylabel("crRNA Detection Designs", size = 15)
 
 # ax.xaxis.set_major_locator(ticker.MultipleLocator(1))
 # ax.xaxis.set_minor_locator(ticker.MultipleLocator(1))
@@ -92,18 +102,20 @@ ax.set_yticklabels(cNames)
 # # Loop over data dimensions and create text annotations.
 # for i in range(len(tNames)):
 #     for j in range(len(cNames)):
-#         text = ax.text(j, i, data[i, j],
-#                        ha="center", va="center", color="w")
+#         text = ax.text(j, i, 't', ha="center", va="center", color="w")
 
 
-ax.set_title("Background-Subtracted Fluorescence at 3 hours")
+ax.set_title("Heatmap of Background-Subtracted Fluorescence", size = 20)
 #fig.tight_layout()
 #plt.colorbar(plt.pcolor(data))
-
+#nnot_kws={"size": 5}, fmt = 'g'
 for text in ax.texts:
-    if float(text.get_text()) > 1:
-        text.set_size(7)
+    if float(text.get_text()) > 100:
+        text.set_text("*")
+        text.set_size(20)
         text.set_weight('bold')
         text.set_style('italic')
+    else:
+        text.set_text("")
 
 plt.show()

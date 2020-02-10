@@ -14,6 +14,7 @@ techReps = 4
 numViruses = 7
 virusNames = []
 
+#test
 root= tk.Tk()
 
 canvas1 = tk.Canvas(root, width = 300, height = 300, bg = 'lightsteelblue')

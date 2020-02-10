@@ -192,12 +192,12 @@ label='e1', yerr = e1E, capsize = 5)
 rects5 = plt.bar(index + 4*bar_width, NTC, bar_width,
 alpha=opacity,
 color='c',
-label='NTC', yerr = NTCE, capsize = 5)
+label='Water', yerr = NTCE, capsize = 5)
 
 plt.xlabel('Virus Name', fontsize = 19)
 ax.set_ylim(bottom = 0)
 ax.set_ylim(top = 120000)
-plt.ylabel('Background Subtracted Fluorescence', fontsize = 19)
+plt.ylabel('Background Subtracted Fluorescence (a.u.)', fontsize = 19)
 plt.title('Limit-Of-Detection for Optimized Respiratory Viruses', fontsize = 20)
 plt.xticks(index + bar_width, virusNamesR)
 for label in (ax.get_xticklabels() + ax.get_yticklabels()):
